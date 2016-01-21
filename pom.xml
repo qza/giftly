@@ -14,6 +14,7 @@
 
     <modules>
         <module>giftly-service</module>
+        <module>giftly-config-server</module>
     </modules>
 
     <parent>
