@@ -11,7 +11,7 @@ First clean and build the project:
 mvn clean install
 ```
 
-This example is using git base configuration repository located at: https://github.com/qza/giftly-config-repo.
+Giftly is using git base configuration repository located at: https://github.com/qza/giftly-config-repo.
 
 Start config server:
 
@@ -19,6 +19,17 @@ Start config server:
 cd giftly-config-server
 mvn spring-boot:run
 ```
+
+Giftly is using eureka server for instance discovery.
+
+Start eureka server:
+
+```
+cd giftly-eureka-server
+mvn spring-boot:run
+```
+
+Giftly service is serving gifts from Mongo.
 
 Start service app:
 
