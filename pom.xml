@@ -13,9 +13,10 @@
     <description>gift recommendation service with spring cloud</description>
 
     <modules>
-        <module>giftly-service</module>
         <module>giftly-config-server</module>
         <module>giftly-eureka-server</module>
+        <module>giftly-service</module>
+        <module>giftly-service-client</module>
     </modules>
 
     <parent>
