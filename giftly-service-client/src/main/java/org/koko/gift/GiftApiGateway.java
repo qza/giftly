@@ -1,5 +1,6 @@
 package org.koko.gift;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.stream.annotation.Output;
@@ -18,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,12 +39,17 @@ public class GiftApiGateway {
         messageChannel.send(MessageBuilder.withPayload(gift.getName()).build());
     }
 
+    @HystrixCommand(fallbackMethod = "getGiftNamesAlternative")
     @RequestMapping(value = "/names", method = RequestMethod.GET)
     public Collection<String> getGiftNames() {
         ParameterizedTypeReference<Resources<Gift>> resources = new ParameterizedTypeReference<Resources<Gift>>() { };
         ResponseEntity<Resources<Gift>> responseEntity =
                 restTemplate.exchange("http://giftly-service/gifts", HttpMethod.GET, null, resources);
         return responseEntity.getBody().getContent().stream().map(Gift::getName).collect(Collectors.toList());
+    }
+
+    public Collection<String> getGiftNamesAlternative() {
+        return Collections.emptyList();
     }
 
 }

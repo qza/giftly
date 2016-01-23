@@ -17,6 +17,7 @@
         <module>giftly-eureka-server</module>
         <module>giftly-service</module>
         <module>giftly-service-client</module>
+        <module>giftly-hystrix-dashboard</module>
     </modules>
 
     <parent>
