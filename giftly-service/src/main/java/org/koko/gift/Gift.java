@@ -2,13 +2,15 @@ package org.koko.gift;
 
 import org.springframework.data.annotation.Id;
 
+import java.math.BigInteger;
+
 /**
  * Gift
  */
 public class Gift {
 
     @Id
-    private Long id;
+    private BigInteger id;
     private String name;
 
     public Gift() {
@@ -16,12 +18,17 @@ public class Gift {
         this.name = "";
     }
 
-    public Gift(Long id, String name) {
+    public Gift(BigInteger id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public Gift(String name) {
+        this.id = null;
+        this.name = name;
+    }
+
+    public BigInteger getId() {
         return id;
     }
 
