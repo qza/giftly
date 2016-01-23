@@ -10,6 +10,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoOperations;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -29,6 +31,11 @@ public class App {
     MongoOperations operations;
 
     static final Logger log = LoggerFactory.getLogger(App.class);
+	
+	@Bean
+	public AlwaysSampler alwaysSampler() {
+		return new AlwaysSampler();
+	}
 
     @PostConstruct
     public void initializeData() {
