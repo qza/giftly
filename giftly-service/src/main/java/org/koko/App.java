@@ -27,10 +27,10 @@ import java.util.Collection;
 @EnableBinding(Sink.class)
 public class App {
 
+    static final Logger log = LoggerFactory.getLogger(App.class);
+
     @Autowired
     MongoOperations operations;
-
-    static final Logger log = LoggerFactory.getLogger(App.class);
 	
 	@Bean
 	public AlwaysSampler alwaysSampler() {

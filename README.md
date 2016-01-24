@@ -1,9 +1,9 @@
 Giftly
 -
 
-Giftly - best recommendations for gifts since ever
+Giftly uses [Redis](https://github.com/dockerfile/redis) for messaging backend between API gateway and services. [MongoDB](https://github.com/dockerfile/mongodb) serves gifts. [Elasticsearch](https://github.com/dockerfile/elasticsearch) acts as search engine and relies on [Mongo connector](https://github.com/mongodb-labs/mongo-connector) to keep data up to date. [Zipkin](https://github.com/openzipkin/zipkin) is used for tracing events.
 
-[MongoDB](https://github.com/dockerfile/mongodb) serves gifts. [Redis](https://github.com/dockerfile/redis) acts as messaging backend between API gateway and services. [Zipkin](https://github.com/openzipkin/zipkin) is used for tracing events.
+### Start services manually on local machine
 
 Clean and build the project:
 
@@ -45,8 +45,7 @@ cd giftly-service
 mvn spring-boot:run -Dserver.port=8092
 ```
 
-Giftly service is accessed via client API gateway. Ribbon performs round robin balancing of GET requests between service instances.
-POST requests are forwarded over Redis queue. On Redis server, check with redis-cli monitor or some other tool, 2 instances should be subscribed to queue.gifts.
+Giftly service is accessed via API gateway. Ribbon performs round-robin balancing of GET requests between service instances. POST requests are forwarded over Redis queue. On Redis server, check with redis-cli monitor or some other tool, two instances should be subscribed to queue.gifts.
 
 Start service client on default port 8080:
 
@@ -56,6 +55,19 @@ mvn spring-boot:run
 ```
 
 Check if all instances are properly registered and displayed in Eureka http://localhost:8761
+
+Giftly uses Hystrix to provide fallback when services are down.
+
+```
+cd giftly-hystrix-dashboard
+mvn spring-boot:run
+```
+
+### Start all services with docker compose
+
+TODO
+
+### Run some actions
 
 List gifts
 
@@ -71,11 +83,10 @@ curl -i -X POST -H "Content-Type: application/json" -d '{"name":"start wars t-sh
 curl http://localhost:8080/gifts/names
 ```
 
-Giftly uses Hystrix to provide alternatives in case that none of the services is running. 
+Use elastic search directly:
 
 ```
-cd giftly-hystrix-dashboard
-mvn spring-boot:run
+curl "http://localhost:9200/giftly/_search?q=name:orange"
 ```
 
 Check Hystrix dashboard in browser to track stream from service client:
@@ -84,4 +95,5 @@ Check Hystrix dashboard in browser to track stream from service client:
 http://localhost:8010/hystrix/monitor?stream=http://localhost:8080/hystrix.stream
 ```
 
-Use Zipkin web to trace spans that are sent by Sleuth to the Zipkin collector via Thrift.
+Use Zipkin web to trace spans that are sent by Sleuth to the Zipkin collector using Thrift.
+
