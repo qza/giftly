@@ -3,7 +3,7 @@ Giftly
 
 Giftly uses [Redis](https://github.com/dockerfile/redis) for messaging backend between API gateway and services. [MongoDB](https://github.com/dockerfile/mongodb) serves gifts. [Elasticsearch](https://github.com/dockerfile/elasticsearch) acts as search engine and relies on [Mongo connector](https://github.com/mongodb-labs/mongo-connector) to keep data up to date. [Zipkin](https://github.com/openzipkin/zipkin) is used for tracing events.
 
-### Start services manually on local machine
+### Start services with spring-boot maven
 
 Clean and build the project:
 
@@ -45,7 +45,9 @@ cd giftly-service
 mvn spring-boot:run -Dserver.port=8092
 ```
 
-Giftly service is accessed via API gateway. Ribbon performs round-robin balancing of GET requests between service instances. POST requests are forwarded over Redis queue. On Redis server, check with redis-cli monitor or some other tool, two instances should be subscribed to queue.gifts.
+On Redis server, check with redis-cli monitor or some other tool, two instances should be subscribed to queue.gifts.
+
+Giftly service is accessed via Zuul that acts as API gateway. Ribbon performs round-robin balancing of GET requests between service instances. POST requests are forwarded over Redis queue.
 
 Start service client on default port 8080:
 
@@ -96,4 +98,3 @@ http://localhost:8010/hystrix/monitor?stream=http://localhost:8080/hystrix.strea
 ```
 
 Use Zipkin web to trace spans that are sent by Sleuth to the Zipkin collector using Thrift.
-
