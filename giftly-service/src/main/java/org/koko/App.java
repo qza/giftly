@@ -2,6 +2,7 @@ package org.koko;
 
 import org.koko.gift.Gift;
 
+import org.koko.gift.GiftInputChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoOperations;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.messaging.Sink;
 
 import javax.annotation.PostConstruct;
 
@@ -24,18 +24,18 @@ import java.util.Collection;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableBinding(Sink.class)
+@EnableBinding(GiftInputChannel.class)
 public class App {
 
     static final Logger log = LoggerFactory.getLogger(App.class);
 
     @Autowired
     MongoOperations operations;
-	
-	@Bean
-	public AlwaysSampler alwaysSampler() {
-		return new AlwaysSampler();
-	}
+
+    @Bean
+    public AlwaysSampler alwaysSampler() {
+        return new AlwaysSampler();
+    }
 
     @PostConstruct
     public void initializeData() {
