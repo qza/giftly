@@ -3,7 +3,9 @@ Giftly
 
 Giftly tracks what is popular and recommends
 
-There are some apps that should be up and running. Gifts are stored in [MongoDB](https://github.com/inlight-media/docker-mongodb-replica-set). [Elasticsearch](https://github.com/dockerfile/elasticsearch) acts as search engine and relies on [Mongo connector](https://github.com/mongodb-labs/mongo-connector) to keep data up to date. Events are logged to [Kafka](https://github.com/wurstmeister/kafka-docker) . [Zipkin](https://github.com/openzipkin/zipkin) is used for tracing.
+There are some apps that should be up and running.
+
+Gifts are stored in [MongoDB](https://github.com/inlight-media/docker-mongodb-replica-set). [Elasticsearch](https://github.com/dockerfile/elasticsearch) relies on [Mongo connector](https://github.com/mongodb-labs/mongo-connector) to keep search data up to date. Likes are logged to [Kafka](https://github.com/wurstmeister/kafka-docker). [Spark](https://github.com/sequenceiq/docker-spark) moves the data and performs runtime computations. [Cassandra](https://github.com/pokle/cassandra) holds data prepared for reporting. [Zipkin](https://github.com/openzipkin/zipkin) is used for tracing.
 
 ### build project
 
@@ -11,7 +13,7 @@ There are some apps that should be up and running. Gifts are stored in [MongoDB]
 mvn clean install
 ```
 
-### start services with spring-boot maven
+### quick start with mvn spring-boot
 
 Start configuration server:
 
@@ -55,7 +57,7 @@ cd giftly-hystrix-dashboard
 mvn spring-boot:run
 ```
 
-### run some actions
+### gift actions
 
 List gifts
 
@@ -77,17 +79,29 @@ Use elastic search directly:
 curl "http://localhost:9200/giftly/_search?q=name:orange"
 ```
 
-Simulate user activity:
+### like actions
+
+Start ingesting data:
 
 ```
-curl -i -X POST -H "Content-Type: application/json" -d '{"giftId":"68090775", "eventType":"gift-like"}' http://localhost:8080/events/
+./spark-submit --class org.koko.like.LikesIngest /home/ec2-user/giftly-data-stream-0.0.1-SNAPSHOT.jar "127.0.0.1" "local" "ec2-52-28-34-63.eu-central-1.compute.amazonaws.com:32791"
 ```
 
-Check if events are written to kafka events topic:
+Place some likes:
 
 ```
-./${KAFKA_HOME}/kafka-console-consumer.sh --topic events --zookeeper $ZK
+curl -i -X POST -H "Content-Type: application/json" -d '{"giftId":"gift1", "userId":"user1", "like_time":"2016-01-02 20:10:12", "liked":"1"}' http://localhost:8080/likes/
+curl -i -X POST -H "Content-Type: application/json" -d '{"giftId":"gift2", "userId":"user1", "like_time":"2016-01-02 20:10:42", "liked":"1"}' http://localhost:8080/likes/
+curl -i -X POST -H "Content-Type: application/json" -d '{"giftId":"gift1", "userId":"user2", "like_time":"2016-01-02 20:20:12", "liked":"1"}' http://localhost:8080/likes/
 ```
+
+Run daily batch:
+
+```
+./spark-submit --class org.koko.like.LikesDaily /home/ec2-user/giftly-data-stream-0.0.1-SNAPSHOT.jar "2016-01-02" "127.0.0.1" "local"
+```
+
+Check current likes, produced top and daily stats in Cassandra.
 
 ### monitor and trace
 
@@ -104,4 +118,4 @@ Use Zipkin web to trace spans that are sent by Sleuth to the Zipkin collector us
 
 ### about core services
 
-Giftly relies on Spring cloud and Netflix OSS components for core services. [Eureka](https://github.com/Netflix/eureka) server enables instance discovery. [Zuul](https://github.com/Netflix/zuul) acts as gateway for main service instances that process requests in backend. [Ribbon](https://github.com/Netflix/ribbon) performs round-robin balancing of GET requests between service instances.
+Giftly uses Spring cloud and Netflix OSS components as core services. [Eureka](https://github.com/Netflix/eureka) server enables instance discovery. [Zuul](https://github.com/Netflix/zuul) acts as gateway for main service instances that process requests in backend. [Ribbon](https://github.com/Netflix/ribbon) performs round-robin balancing of GET requests between service instances.

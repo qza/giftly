@@ -15,6 +15,7 @@
     <modules>
         <module>giftly-config-server</module>
         <module>giftly-discovery-service</module>
+        <module>giftly-data-stream</module>
         <module>giftly-service</module>
         <module>giftly-search-service</module>
         <module>giftly-gateway</module>
