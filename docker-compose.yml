@@ -1,0 +1,34 @@
+configserver:
+  image: koko/giftly-config-server
+  ports:
+   - "8888:8888"
+
+discovery:
+  image: koko/giftly-discovery-service
+  ports:
+   - "8761:8761"
+
+service:
+  image: koko/giftly-service
+  ports:
+   - "7790-7799"
+  links:
+   - configserver
+   - discovery
+
+gateway:
+  image: koko/giftly-gateway
+  ports:
+   - "8080:8080"
+  links:
+   - configserver
+   - discovery
+   - service
+
+hystrix:
+  image: koko/hystrix-dashboard
+  ports:
+   - "8010:8010"
+  links:
+   - gateway
+   - discovery

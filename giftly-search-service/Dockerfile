@@ -1,6 +1,6 @@
 FROM java:8
 VOLUME /tmp
-ADD giftly-config-server-0.0.1-SNAPSHOT.jar app.jar
+ADD giftly-search-service-0.0.1-SNAPSHOT.jar app.jar
 RUN bash -c 'touch /app.jar'
-EXPOSE 8888
+EXPOSE 7600-7699
 ENTRYPOINT ["java","-jar","/app.jar"]
