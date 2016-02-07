@@ -14,6 +14,10 @@
     <name>giftly-gateway</name>
     <description>Giftly app gateway</description>
 
+    <properties>
+        <jackson.smile.version>2.7.0</jackson.smile.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -45,11 +49,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-redis</artifactId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-smile</artifactId>
+            <version>${jackson.smile.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

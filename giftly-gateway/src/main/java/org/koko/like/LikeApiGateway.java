@@ -1,4 +1,6 @@
-package org.koko.event;
+package org.koko.like;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.Output;
@@ -9,20 +11,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
 /**
- * EventApiGateway
+ * LikeApiGateway
  */
 @RestController
-@RequestMapping("/events")
-public class EventApiGateway {
+@RequestMapping("/likes")
+public class LikeApiGateway {
 
     @Autowired
-    @Output(EventOutputChannel.NAME)
+    @Output(LikeOutputChannel.NAME)
     private MessageChannel messageChannel;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public void writeEvent(@RequestBody Event event) {
-        messageChannel.send(MessageBuilder.withPayload(event).build());
+    public void writeLike(@RequestBody Like like) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        StringWriter likeString = new StringWriter();
+        mapper.writeValue(likeString, like);
+        messageChannel.send(MessageBuilder.withPayload(likeString).build());
     }
 
 }

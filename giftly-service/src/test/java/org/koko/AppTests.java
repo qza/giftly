@@ -11,13 +11,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = App.class)
 @WebAppConfiguration
-@TestPropertySource(locations="classpath:bootstrap-test.properties")
-@IntegrationTest({ "server.port=0", "spring.zipkin.enabled=false"})
+@TestPropertySource(locations = "classpath:bootstrap-test.properties")
+@IntegrationTest({"server.port=0"})
 public class AppTests {
 
-	@Test
-	public void shouldLoadAppContext() {
-
-	}
+    @Test
+    public void shouldLoadAppContext() {
+    }
 
 }
