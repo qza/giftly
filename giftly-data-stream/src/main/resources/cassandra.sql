@@ -1,3 +1,9 @@
+CREATE KEYSPACE OpsCenter
+    WITH REPLICATION = {
+        'class' : 'SimpleStrategy',
+        'replication_factor' : 1
+    };
+
 CREATE KEYSPACE giftly
     WITH REPLICATION = {
         'class' : 'SimpleStrategy',
@@ -10,7 +16,7 @@ CREATE TABLE giftly.gift_likes_raw (
     liked int,
     comment text,
     like_time timestamp,
-    PRIMARY KEY ((gift_id, user_id), like_time, liked)
+    PRIMARY KEY ((gift_id, user_id, liked), like_time)
 );
 
 CREATE TABLE giftly.gift_likes_current (

@@ -40,11 +40,12 @@ public class LikesDaily implements Serializable {
 
         javaFunctions
                 .cassandraTable("giftly", "gift_likes_raw")
-                .where("like_time >= '" + date + " 00:00:00' AND  like_time <= '" + date + " 23:59:59' and liked=1")
+                .where("like_time >= '" + date + " 00:00:00' AND  like_time <= '" + date + " 23:59:59'")
+                .filter(row -> row.getInt("liked") == 1)
                 .mapToPair((PairFunction<CassandraRow, String, Long>) row ->
                         new Tuple2<>(row.getString("gift_id"), Long.valueOf(1))
                 )
-                .reduceByKey((Function2<Long, Long, Long>) (aLong, aLong2) -> aLong + aLong2)
+                .foldByKey(0L, (Function2<Long, Long, Long>) (aLong, aLong2) -> aLong + aLong2)
                 .foreach((keyval) -> {
                     try (Session session = connector.openSession()) {
                         String queryString = "UPDATE giftly.gift_likes_daily SET total = ? WHERE gift_id = ? AND date = ?";
