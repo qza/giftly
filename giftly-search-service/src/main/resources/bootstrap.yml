@@ -1,0 +1,14 @@
+spring:
+
+  application:
+    name: giftly-search-service
+
+  cloud:
+    config:
+      uri: http://configserver:6888
+
+  data:
+    elasticsearch:
+      cluster:
+        host: localhost
+        port: 9300

@@ -1,0 +1,8 @@
+spring:
+
+  application:
+    name: giftly-hystrix-dashboard
+
+  cloud:
+    config:
+      uri: http://configserver:6888

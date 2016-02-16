@@ -1,0 +1,20 @@
+server:
+  port: 6888
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/qza/giftly-config-repo
+
+eureka:
+
+  instance:
+    hostname: configserver
+
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://giftlydiscovery:8761/eureka/

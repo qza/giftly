@@ -1,0 +1,18 @@
+server:
+  port: 8090
+
+kafka:
+  enabled: true
+
+eureka:
+
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+
+  instance:
+    preferIpAddress: true
+
+spring:
+  zipkin:
+    enabled: false
