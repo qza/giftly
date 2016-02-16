@@ -1,0 +1,36 @@
+mongo:
+  image: mongo:3.0
+  hostname: mongo
+  mem_limit: 1024m
+  restart: always
+  expose:
+    - "27017"
+    - "28017"
+  entrypoint: [ "/usr/bin/mongod", "--replSet", "rs", "--smallfiles", "--httpinterface", "--rest" ]
+
+mongosetup:
+  image: yeasy/mongosetup
+  mem_limit: 1024m
+  links:
+    - mongo:mongo
+
+elasticsearch:
+  image: elasticsearch:1.7
+  mem_limit: 1024m
+  expose:
+    - "9200"
+    - "9300"
+
+mongoconnector:
+  image: yeasy/mongo-connector
+  links:
+    - mongo:mongo
+    - elasticsearch:elasticsearch
+
+kibana:
+  image: kibana:4.1
+  ports:
+    - "5601:5601"
+  links:
+    - elasticsearch:elasticsearch
+

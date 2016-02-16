@@ -1,0 +1,29 @@
+opscenter:
+  image: 47deg/opscenter
+  ports:
+  - "8558:8558"
+  expose:
+    - "8558"
+  container_name: opscenter
+
+cassandra_seed:
+  image: 47deg/cassandra
+  ports:
+  - "9042:9042"
+  expose:
+    - "9042"
+    - "9160"
+  links:
+    - opscenter
+  container_name: cassandra_seed
+  environment:
+    - OPS_IP=opscenter
+
+cassandra_slave:
+  image: 47deg/cassandra
+  links:
+    - opscenter
+    - cassandra_seed
+  environment:
+    - OPS_IP=opscenter
+    - SEED=cassandra_seed

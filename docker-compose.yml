@@ -1,12 +1,14 @@
 configserver:
   image: koko/giftly-config-server
   ports:
-   - "8888:8888"
+   - "6888:6888"
+  restart: always
 
 discovery:
   image: koko/giftly-discovery-service
   ports:
    - "8761:8761"
+  restart: always
 
 service:
   image: koko/giftly-service
@@ -15,20 +17,22 @@ service:
   links:
    - configserver
    - discovery
+  restart: always
 
 gateway:
   image: koko/giftly-gateway
   ports:
-   - "8080:8080"
+   - "8090:8090"
   links:
    - configserver
    - discovery
-   - service
+  restart: always
 
 hystrix:
-  image: koko/hystrix-dashboard
+  image: koko/giftly-hystrix-dashboard
   ports:
    - "8010:8010"
   links:
    - gateway
    - discovery
+  restart: always
