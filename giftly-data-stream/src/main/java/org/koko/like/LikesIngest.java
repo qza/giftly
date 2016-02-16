@@ -55,12 +55,13 @@ public class LikesIngest implements Serializable {
 
                 try (Session session = connector.openSession()) {
 
-                    int modifier = Integer.valueOf(like.getLiked()) == 1 ? 1 : -1;
-                    String updateTop = "UPDATE giftly.gift_likes_top SET total = total + ? WHERE gift_id = ?";
-                    session.execute(session.prepare(updateTop).bind(modifier, like.getGiftId()));
+                    boolean isLiked = Integer.valueOf(like.getLiked()) == 1;
+
+                    String updateTop = "UPDATE giftly.gift_likes_top SET total = total " + (isLiked ? "+" : "-") + " 1 WHERE gift_id = ?";
+                    session.execute(session.prepare(updateTop).bind(like.getGiftId()));
 
                     String updateCurrent = "UPDATE giftly.gift_likes_current SET liked = ? WHERE gift_id = ? and user_id = ?";
-                    session.execute(session.prepare(updateCurrent).bind(like.getLiked(), like.getGiftId(), like.getUserId()));
+                    session.execute(session.prepare(updateCurrent).bind(Integer.valueOf(like.getLiked()), like.getGiftId(), like.getUserId()));
                 }
             });
             return null;
