@@ -1,0 +1,8 @@
+spring:
+
+  application:
+    name: giftly-auth-server
+
+  cloud:
+    config:
+      uri: http://configserver:6888
