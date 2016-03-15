@@ -13,3 +13,7 @@ eureka:
 spring:
   zipkin:
     enabled: false
+
+auth:
+  token:
+    secret: secret
