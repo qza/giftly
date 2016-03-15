@@ -1,5 +1,6 @@
 package org.koko.auth;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -28,9 +29,12 @@ public class AuthTokenService {
         return Jwts.builder().setSubject(user.getUsername()).signWith(SignatureAlgorithm.HS512, tokenSecret).compact();
     }
 
+    public Claims detectClaims(String token) {
+        return Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(token).getBody();
+    }
+
     public UserDetails detectUser(String token) {
-        String username = Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(token).getBody().getSubject();
-        return userDetailsService.loadUserByUsername(username);
+        return userDetailsService.loadUserByUsername(detectClaims(token).getSubject());
     }
 
 }
