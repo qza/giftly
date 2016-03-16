@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AuthUserMemoryService implements UserDetailsService {
+public class AuthUserMemoryStore implements UserDetailsService {
 
     private final Map<String, UserDetails> store = new HashMap<>();
 

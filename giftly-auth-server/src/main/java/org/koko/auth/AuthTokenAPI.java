@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class AuthTokenController {
+public class AuthTokenAPI {
 
     private final AuthTokenService authTokenService;
 
     @Autowired
-    public AuthTokenController(AuthTokenService authTokenService, AuthUserMemoryService authUserMemoryService) {
+    public AuthTokenAPI(AuthTokenService authTokenService) {
         this.authTokenService = authTokenService;
     }
 
@@ -30,7 +30,7 @@ public class AuthTokenController {
     }
 
     @RequestMapping(value = "/auth/claim", method = RequestMethod.POST)
-    public ResponseEntity<AuthTokenResponse> validate(@RequestHeader(value = "X-AUTH-TOKEN") String authToken) {
+    public ResponseEntity<AuthTokenResponse> claim(@RequestHeader("X-AUTH-TOKEN") String authToken) {
         Claims claims = authTokenService.detectClaims(authToken);
         AuthTokenResponse response = new AuthTokenResponse(claims);
         return ResponseEntity.status(HttpStatus.OK).body(response);
