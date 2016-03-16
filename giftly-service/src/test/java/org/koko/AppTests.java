@@ -19,4 +19,8 @@ public class AppTests {
     public void shouldLoadAppContext() {
     }
 
+    @Test
+    public void shouldFetchGiftList() {
+    }
+
 }
