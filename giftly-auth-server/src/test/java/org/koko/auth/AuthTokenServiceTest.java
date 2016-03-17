@@ -11,6 +11,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
+import org.mockito.Mock;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,11 +21,13 @@ import java.util.Arrays;
 
 public class AuthTokenServiceTest {
 
-    public static final String TEST_USER = "test-user";
-    public static final String TEST_PASSWORD = "test-password";
-    public static final String TEST_ROLE = "test-role";
+    final String TEST_USER = "test-user";
+    final String TEST_PASSWORD = "test-password";
+    final String TEST_ROLE = "test-role";
 
-    UserDetailsService userDetailsService = mock(UserDetailsService.class);
+    @Mock
+    UserDetailsService userDetailsService;
+
     User user = new User(TEST_USER, TEST_PASSWORD, Arrays.asList(new SimpleGrantedAuthority(TEST_ROLE)));
     AuthTokenService authTokenService = new AuthTokenService("token-secret", userDetailsService);
 
