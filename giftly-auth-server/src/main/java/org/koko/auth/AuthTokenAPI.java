@@ -25,14 +25,14 @@ public class AuthTokenAPI {
     @RequestMapping(value = "/auth/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AuthTokenResponse> create(@RequestParam("username") String username, @RequestParam("password") String password) {
         String token = authTokenService.createToken(username, password);
-        AuthTokenResponse response = new AuthTokenResponse(token);
+        AuthTokenResponse response = new AuthTokenResponse(token, "1h");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @RequestMapping(value = "/auth/claim", method = RequestMethod.POST)
     public ResponseEntity<AuthTokenResponse> claim(@RequestHeader("X-AUTH-TOKEN") String authToken) {
         Claims claims = authTokenService.detectClaims(authToken);
-        AuthTokenResponse response = new AuthTokenResponse(claims);
+        AuthTokenResponse response = new AuthTokenResponse(claims, "expires: " + claims.getExpiration());
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
