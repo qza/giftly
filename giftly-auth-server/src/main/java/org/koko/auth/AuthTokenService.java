@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +28,10 @@ public class AuthTokenService {
 
     public String createToken(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if (userDetails == null || !userDetails.getPassword().equals(password)) {
+        if (userDetails == null) {
+            throw new AuthenticationCredentialsNotFoundException(username);
+        }
+        if(!userDetails.getPassword().equals(password)) {
             throw new BadCredentialsException("invalid credentials");
         }
         return createToken(userDetails);

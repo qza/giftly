@@ -7,10 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthTokenAPI {
@@ -23,8 +20,8 @@ public class AuthTokenAPI {
     }
 
     @RequestMapping(value = "/auth/new", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<AuthTokenResponse> create(@RequestParam("username") String username, @RequestParam("password") String password) {
-        String token = authTokenService.createToken(username, password);
+    public ResponseEntity<AuthTokenResponse> create(@RequestBody AuthTokenRequest authTokenRequest) {
+        String token = authTokenService.createToken(authTokenRequest.getUsername(), authTokenRequest.getPassword());
         AuthTokenResponse response = new AuthTokenResponse(token, "1h");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

@@ -1,32 +1,34 @@
 package org.koko.auth;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.impl.DefaultClaims;
 
 @JsonInclude(content = JsonInclude.Include.NON_EMPTY)
 public class AuthTokenResponse {
 
     private String token;
-    private Claims claims;
-    private String error;
     private String message;
+    private String error;
 
-    @JsonCreator
-    public AuthTokenResponse(@JsonProperty("token") String token, @JsonProperty("message") String message) {
+    @JsonDeserialize(as = DefaultClaims.class)
+    private Claims claims;
+
+    public AuthTokenResponse() {
+    }
+
+    public AuthTokenResponse(String token, String message) {
         this.token = token;
         this.message = message;
     }
 
-    @JsonCreator
-    public AuthTokenResponse(@JsonProperty("claims") Claims claims, @JsonProperty("message") String message) {
+    public AuthTokenResponse(Claims claims, String message) {
         this.claims = claims;
         this.message = message;
     }
 
-    @JsonCreator
-    public AuthTokenResponse(@JsonProperty("error") String error) {
+    public AuthTokenResponse(String error) {
         this.error = error;
     }
 
