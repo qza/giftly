@@ -1,11 +1,13 @@
 package org.koko.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.koko.GiftlyAuthServerApplication;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
@@ -18,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -31,11 +34,14 @@ public class AuthTokenAPITest {
     @Value("${local.server.port}")
     private int port;
 
+    @Autowired
+    private AuthUserMemoryStore authUserMemoryStore;
+
     private URL base;
     private RestTemplate template;
 
-    public static final String TEST = "test";
-    public static User user = new User(TEST, TEST, Arrays.asList(new SimpleGrantedAuthority(TEST)));
+    private static final String TEST = "test";
+    private User user = TestUserFactory.invoke();
 
     @Before
     public void setUp() throws Exception {
@@ -46,18 +52,39 @@ public class AuthTokenAPITest {
     @Test
     public void shouldReturnErrorResponseForUnknownUser() throws Exception {
 
-        AuthTokenRequest authTokenRequest = new AuthTokenRequest();
-        authTokenRequest.setUsername(TEST);
-        authTokenRequest.setPassword(TEST);
-
-        RequestEntity<AuthTokenRequest> requestEntity =
-                RequestEntity.post(new URI(base.toString() + "/auth/new"))
-                        .accept(MediaType.APPLICATION_JSON_UTF8)
-                        .body(authTokenRequest);
-
+        RequestEntity<AuthTokenRequest> requestEntity = new AuthTokenRequestFactory().invoke(TEST, TEST);
         String responseStr = template.postForObject(requestEntity.getUrl(), requestEntity, String.class);
         AuthTokenResponse response = new ObjectMapper().readValue(responseStr, AuthTokenResponse.class);
 
         assertThat(response.getError(), response.getError().matches("invalid credentials"));
+    }
+
+    @Test
+    public void shouldReturnTokenForKnownUser() throws Exception {
+
+        authUserMemoryStore.add(user);
+
+        RequestEntity<AuthTokenRequest> requestEntity = new AuthTokenRequestFactory().invoke(TEST, TEST);
+        String responseStr = template.postForObject(requestEntity.getUrl(), requestEntity, String.class);
+        AuthTokenResponse response = new ObjectMapper().readValue(responseStr, AuthTokenResponse.class);
+
+        assertThat("produced valid token", response.getToken() != null);
+    }
+
+    private static class TestUserFactory {
+        private static User invoke() {
+            return new User(TEST, TEST, Arrays.asList(new SimpleGrantedAuthority(TEST)));
+        }
+    }
+
+    private class AuthTokenRequestFactory {
+        private RequestEntity<AuthTokenRequest> invoke(String username, String password) throws URISyntaxException {
+            AuthTokenRequest authTokenRequest = new AuthTokenRequest();
+            authTokenRequest.setUsername(username);
+            authTokenRequest.setPassword(password);
+            return RequestEntity.post(new URI(base.toString() + "/auth/new"))
+                    .accept(MediaType.APPLICATION_JSON_UTF8)
+                    .body(authTokenRequest);
+        }
     }
 }
