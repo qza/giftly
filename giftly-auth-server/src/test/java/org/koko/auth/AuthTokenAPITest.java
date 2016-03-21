@@ -40,8 +40,7 @@ public class AuthTokenAPITest {
     private URL base;
     private RestTemplate template;
 
-    private static final String TEST = "test";
-    private User user = TestUserFactory.invoke();
+    private User user = TestUserFactory.create();
 
     @Before
     public void setUp() throws Exception {
@@ -52,7 +51,7 @@ public class AuthTokenAPITest {
     @Test
     public void shouldReturnErrorResponseForUnknownUser() throws Exception {
 
-        RequestEntity<AuthTokenRequest> requestEntity = new AuthTokenRequestFactory().invoke(TEST, TEST);
+        RequestEntity<AuthTokenRequest> requestEntity = new AuthTokenRequestFactory().create();
         String responseStr = template.postForObject(requestEntity.getUrl(), requestEntity, String.class);
         AuthTokenResponse response = new ObjectMapper().readValue(responseStr, AuthTokenResponse.class);
 
@@ -64,24 +63,33 @@ public class AuthTokenAPITest {
 
         authUserMemoryStore.add(user);
 
-        RequestEntity<AuthTokenRequest> requestEntity = new AuthTokenRequestFactory().invoke(TEST, TEST);
+        RequestEntity<AuthTokenRequest> requestEntity = new AuthTokenRequestFactory().create();
         String responseStr = template.postForObject(requestEntity.getUrl(), requestEntity, String.class);
         AuthTokenResponse response = new ObjectMapper().readValue(responseStr, AuthTokenResponse.class);
 
         assertThat("produced valid token", response.getToken() != null);
     }
 
+    private static final String TEST = "test";
+
     private static class TestUserFactory {
-        private static User invoke() {
+        /**
+         * @return test user
+         */
+        private static User create() {
             return new User(TEST, TEST, Arrays.asList(new SimpleGrantedAuthority(TEST)));
         }
     }
 
     private class AuthTokenRequestFactory {
-        private RequestEntity<AuthTokenRequest> invoke(String username, String password) throws URISyntaxException {
+        /**
+         * @return spring http request entity
+         * @throws URISyntaxException
+         */
+        private RequestEntity<AuthTokenRequest> create() throws URISyntaxException {
             AuthTokenRequest authTokenRequest = new AuthTokenRequest();
-            authTokenRequest.setUsername(username);
-            authTokenRequest.setPassword(password);
+            authTokenRequest.setUsername(TEST);
+            authTokenRequest.setPassword(TEST);
             return RequestEntity.post(new URI(base.toString() + "/auth/new"))
                     .accept(MediaType.APPLICATION_JSON_UTF8)
                     .body(authTokenRequest);
