@@ -1,0 +1,8 @@
+spring:
+
+  application:
+    name: giftly-resource-store
+
+  cloud:
+    config:
+      uri: http://configserver:6888
