@@ -14,3 +14,9 @@ spring:
 
   zipkin:
     enabled: false
+
+aws:
+  defaultRegion: {region}
+  credentials:
+    accessKey: {accessKey}
+    secretKey: {secretKey}
