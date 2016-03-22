@@ -1,6 +1,6 @@
 package org.koko.resource.store.s3;
 
-import com.amazonaws.services.s3.model.ProgressListener;
+import com.amazonaws.event.ProgressListener;
 import org.springframework.web.multipart.MultipartFile;
 
 public class S3UploadRequest {
