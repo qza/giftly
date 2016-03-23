@@ -26,7 +26,7 @@ public class AuthTokenServiceTest {
     final String TEST_ROLE = "test-role";
 
     @Mock
-    UserDetailsService userDetailsService;
+    UserDetailsService userDetailsService = mock(UserDetailsService.class);
 
     User user = new User(TEST_USER, TEST_PASSWORD, Arrays.asList(new SimpleGrantedAuthority(TEST_ROLE)));
     AuthTokenService authTokenService = new AuthTokenService("token-secret", userDetailsService);

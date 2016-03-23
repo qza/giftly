@@ -8,10 +8,10 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * AppBidings
+ * AppBindings
  */
 @Configuration
 @EnableBinding({GiftOutputChannel.class, LikeOutputChannel.class})
 @ConditionalOnExpression("${kafka.enabled:true}")
-public class AppBidings {
+public class AppBindings {
 }

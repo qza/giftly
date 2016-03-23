@@ -39,7 +39,6 @@ public class AuthTokenAPITest {
 
     private URL base;
     private RestTemplate template;
-
     private User user = TestUserFactory.create();
 
     @Before
@@ -70,6 +69,9 @@ public class AuthTokenAPITest {
         assertThat("produced valid token", response.getToken() != null);
     }
 
+    /*
+     * PRIVATE
+     */
     private static final String TEST = "test";
 
     private static class TestUserFactory {
