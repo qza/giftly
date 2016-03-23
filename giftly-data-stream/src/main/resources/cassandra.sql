@@ -34,7 +34,7 @@ CREATE TABLE giftly.gift_likes_daily (
     PRIMARY KEY (gift_id, date)
 ) WITH CLUSTERING ORDER BY (date DESC);
 
-CREATE TABLE giftly.gift_likes_top (
+CREATE TABLE giftly.gift_likes_total (
     gift_id text,
     total counter,
     PRIMARY KEY (gift_id)

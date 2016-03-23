@@ -5,7 +5,7 @@ Example application that tracks what is popular and recommends. Work in progress
 
 ###
 
-Use files from setup folder to compose environment. Use configuration repository to configure required paths.
+Use files from setup folder to compose environment. Use configuration repository to configure required paths. Find cassandra.sql to see how to setup cassandra and where to check for the data.
 
 ### Quick start with docker
 

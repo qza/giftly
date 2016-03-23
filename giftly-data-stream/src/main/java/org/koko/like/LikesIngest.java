@@ -57,7 +57,7 @@ public class LikesIngest implements Serializable {
 
                     boolean isLiked = Integer.valueOf(like.getLiked()) == 1;
 
-                    String updateTop = "UPDATE giftly.gift_likes_top SET total = total " + (isLiked ? "+" : "-") + " 1 WHERE gift_id = ?";
+                    String updateTop = "UPDATE giftly.gift_likes_total SET total = total " + (isLiked ? "+" : "-") + " 1 WHERE gift_id = ?";
                     session.execute(session.prepare(updateTop).bind(like.getGiftId()));
 
                     String updateCurrent = "UPDATE giftly.gift_likes_current SET liked = ? WHERE gift_id = ? and user_id = ?";
