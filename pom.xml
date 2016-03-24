@@ -20,6 +20,7 @@
         <module>giftly-resource-store</module>
         <module>giftly-service</module>
         <module>giftly-search-service</module>
+        <module>giftly-social-connect</module>
         <module>giftly-gateway</module>
         <module>giftly-hystrix-dashboard</module>
         <module>giftly-ui</module>
