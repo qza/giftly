@@ -1,0 +1,27 @@
+commitlog_directory: target/cassandra/commitlog
+
+data_file_directories:
+  - target/cassandra/data
+
+saved_caches_directory: target/cassandra/saved_caches
+
+hints_directory: target/cassandra/hints
+
+listen_address: localhost
+
+cluster_name: 'Test Cluster'
+
+commitlog_sync: periodic
+
+commitlog_sync_period_in_ms: 10000
+
+endpoint_snitch: org.apache.cassandra.locator.SimpleSnitch
+
+partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+
+concurrent_compactors: 2
+
+seed_provider:
+    - class_name: org.apache.cassandra.locator.SimpleSeedProvider
+      parameters:
+          - seeds: "127.0.0.1"
