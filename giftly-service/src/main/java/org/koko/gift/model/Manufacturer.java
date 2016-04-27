@@ -2,7 +2,6 @@ package org.koko.gift.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -10,19 +9,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
+        "_id",
         "name",
         "country",
         "city"
 })
 public class Manufacturer {
 
+    @JsonProperty("_id")
+    private String Id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("country")
@@ -33,20 +34,24 @@ public class Manufacturer {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * No args constructor for use in serialization
+     * @return The Id
      */
-    public Manufacturer() {
+    @JsonProperty("_id")
+    public String getId() {
+        return Id;
     }
 
     /**
-     * @param name
-     * @param city
-     * @param country
+     * @param Id The _id
      */
-    public Manufacturer(String name, String country, String city) {
-        this.name = name;
-        this.country = country;
-        this.city = city;
+    @JsonProperty("_id")
+    public void setId(String Id) {
+        this.Id = Id;
+    }
+
+    public Manufacturer withId(String Id) {
+        this.Id = Id;
+        return this;
     }
 
     /**
@@ -134,7 +139,7 @@ public class Manufacturer {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(name).append(country).append(city).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(Id).append(name).append(country).append(city).append(additionalProperties).toHashCode();
     }
 
     @Override
@@ -146,7 +151,7 @@ public class Manufacturer {
             return false;
         }
         Manufacturer rhs = ((Manufacturer) other);
-        return new EqualsBuilder().append(name, rhs.name).append(country, rhs.country).append(city, rhs.city).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(Id, rhs.Id).append(name, rhs.name).append(country, rhs.country).append(city, rhs.city).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 
 }

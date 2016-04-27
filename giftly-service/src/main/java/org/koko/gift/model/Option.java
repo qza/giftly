@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,41 +11,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
         "type",
-        "optionItems"
+        "option_items"
 })
 public class Option {
 
     @JsonProperty("type")
     private String type;
-
-    @JsonProperty("optionItems")
+    @JsonProperty("option_items")
     private List<OptionItem> optionItems = new ArrayList<OptionItem>();
-
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    /**
-     * No args constructor for use in serialization
-     */
-    public Option() {
-    }
-
-    /**
-     * @param type
-     * @param optionItems
-     */
-    public Option(String type, List<OptionItem> optionItems) {
-        this.type = type;
-        this.optionItems = optionItems;
-    }
 
     /**
      * @return The type
@@ -72,21 +53,21 @@ public class Option {
     /**
      * @return The optionItems
      */
-    @JsonProperty("optionItems")
+    @JsonProperty("option_items")
     public List<OptionItem> getOptionItems() {
         return optionItems;
     }
 
     /**
-     * @param optionItems The optionItems
+     * @param optionItems The option_items
      */
-    @JsonProperty("optionItems")
+    @JsonProperty("option_items")
     public void setOptionItems(List<OptionItem> optionItems) {
         this.optionItems = optionItems;
     }
 
-    public Option withOptions(List<OptionItem> options) {
-        this.optionItems = options;
+    public Option withOptionItems(List<OptionItem> optionItems) {
+        this.optionItems = optionItems;
         return this;
     }
 

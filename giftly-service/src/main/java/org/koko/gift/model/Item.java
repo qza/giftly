@@ -2,23 +2,20 @@ package org.koko.gift.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-        "image",
-        "url"
+    "image",
+    "url"
 })
 public class Item {
 
@@ -30,22 +27,9 @@ public class Item {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * No args constructor for use in serialization
-     */
-    public Item() {
-    }
-
-    /**
-     * @param image
-     * @param url
-     */
-    public Item(String image, String url) {
-        this.image = image;
-        this.url = url;
-    }
-
-    /**
-     * @return The image
+     * 
+     * @return
+     *     The image
      */
     @JsonProperty("image")
     public String getImage() {
@@ -53,7 +37,9 @@ public class Item {
     }
 
     /**
-     * @param image The image
+     * 
+     * @param image
+     *     The image
      */
     @JsonProperty("image")
     public void setImage(String image) {
@@ -66,7 +52,9 @@ public class Item {
     }
 
     /**
-     * @return The url
+     * 
+     * @return
+     *     The url
      */
     @JsonProperty("url")
     public String getUrl() {
@@ -74,7 +62,9 @@ public class Item {
     }
 
     /**
-     * @param url The url
+     * 
+     * @param url
+     *     The url
      */
     @JsonProperty("url")
     public void setUrl(String url) {

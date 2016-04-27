@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,12 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
         "_id",
         "name",
@@ -32,7 +30,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 public class Gift {
 
     @JsonProperty("_id")
-    private Double Id;
+    private String Id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("size")
@@ -53,39 +51,10 @@ public class Gift {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * No args constructor for use in serialization
-     */
-    public Gift() {
-    }
-
-    /**
-     * @param tags
-     * @param price
-     * @param manufacturer
-     * @param meterial
-     * @param name
-     * @param images
-     * @param Id
-     * @param options
-     * @param size
-     */
-    public Gift(Double Id, String name, String size, String meterial, List<String> tags, Manufacturer manufacturer, List<Image> images, Price price, List<Option> options) {
-        this.Id = Id;
-        this.name = name;
-        this.size = size;
-        this.meterial = meterial;
-        this.tags = tags;
-        this.manufacturer = manufacturer;
-        this.images = images;
-        this.price = price;
-        this.options = options;
-    }
-
-    /**
      * @return The Id
      */
     @JsonProperty("_id")
-    public Double getId() {
+    public String getId() {
         return Id;
     }
 
@@ -93,11 +62,11 @@ public class Gift {
      * @param Id The _id
      */
     @JsonProperty("_id")
-    public void setId(Double Id) {
+    public void setId(String Id) {
         this.Id = Id;
     }
 
-    public Gift withId(Double Id) {
+    public Gift withId(String Id) {
         this.Id = Id;
         return this;
     }
