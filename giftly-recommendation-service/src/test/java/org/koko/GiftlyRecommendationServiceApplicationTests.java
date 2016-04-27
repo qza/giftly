@@ -1,10 +1,8 @@
 package org.koko;
 
-import org.apache.cassandra.io.util.FileUtils;
 import org.cassandraunit.utils.EmbeddedCassandraServerHelper;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -18,8 +16,8 @@ public class GiftlyRecommendationServiceApplicationTests {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
-		FileUtils.delete("target/cassandra");
 		EmbeddedCassandraServerHelper.startEmbeddedCassandra();
+		Thread.sleep(2000);
 	}
 
 	@AfterClass
@@ -28,7 +26,7 @@ public class GiftlyRecommendationServiceApplicationTests {
 	}
 
 	@Test
-	@Ignore("io.netty dependencies should be previously resolved") // TODO
+//	@Ignore("io.netty dependencies should be previously resolved") // TODO
 	public void contextLoads() {
 	}
 
