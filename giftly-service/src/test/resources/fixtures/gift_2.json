@@ -1,0 +1,43 @@
+{
+  "_id": "5720436c4b3adee9615eff75",
+  "name": "book of sanity",
+  "size": "24x37",
+  "meterial": "paper",
+  "tags": [
+    "vintage",
+    "magic",
+    "reading"
+  ],
+  "manufacturer": {
+    "_id": "572043514b3adee9615eff73",
+    "name": "Mark Thompson",
+    "country": "United Kingdom",
+    "city": "London"
+  },
+  "images": [
+    {
+      "image": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png",
+      "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png"
+    },
+    {
+      "image": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png",
+      "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png"
+    }
+  ],
+  "price": {
+    "amount": 40440.0,
+    "currency": "GBP",
+    "discounts": [
+      {
+        "type": "fix",
+        "amount": "5",
+        "condition": {
+          "type": "until",
+          "value": 1412180887
+        }
+      }
+    ]
+  },
+  "options": [
+  ]
+}

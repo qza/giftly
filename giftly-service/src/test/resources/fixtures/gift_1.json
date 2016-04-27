@@ -1,0 +1,65 @@
+{
+  "_id": "572042ec4b3adee9615eff71",
+  "name": "cage of magic",
+  "size": "16x32",
+  "meterial": "glass",
+  "tags": [
+    "vintage",
+    "magic"
+  ],
+  "manufacturer": {
+    "_id": "5720428e4b3adee9615eff6b",
+    "name": "Linda Johnson",
+    "country": "Canada",
+    "city": "Montreal"
+  },
+  "images": [
+    {
+      "image": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png",
+      "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png"
+    },
+    {
+      "image": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png",
+      "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png"
+    }
+  ],
+  "price": {
+    "amount": 50550.0,
+    "currency": "USD",
+    "discounts": [
+      {
+        "type": "percent",
+        "amount": "10",
+        "condition": {
+          "type": "ref",
+          "item": {
+            "image": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png",
+            "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png"
+          }
+        }
+      }
+    ]
+  },
+  "options": [
+    {
+      "type": "color",
+      "option_items": [
+        {
+          "name": "red",
+          "image": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png?color=\"red\"",
+          "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png?color=\"red\""
+        },
+        {
+          "name": "green",
+          "image": "https://s3a.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png?color=\"green\"",
+          "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png?color=\"green\""
+        },
+        {
+          "name": "blue",
+          "image": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png?color=\"blue\"",
+          "url": "https://s3.eu-central-1.amazonaws.com/qza-dev-images/chrome-logo-transparent.png?color=\"blue\""
+        }
+      ]
+    }
+  ]
+}

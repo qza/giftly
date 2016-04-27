@@ -6,6 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -14,6 +15,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({
         "_id",
         "name",
@@ -23,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Manufacturer {
 
     @JsonProperty("_id")
-    private String Id;
+    private String id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("country")
@@ -34,11 +36,11 @@ public class Manufacturer {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     * @return The Id
+     * @return The id
      */
     @JsonProperty("_id")
     public String getId() {
-        return Id;
+        return id;
     }
 
     /**
@@ -46,11 +48,11 @@ public class Manufacturer {
      */
     @JsonProperty("_id")
     public void setId(String Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public Manufacturer withId(String Id) {
-        this.Id = Id;
+        this.id = Id;
         return this;
     }
 
@@ -139,7 +141,7 @@ public class Manufacturer {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(Id).append(name).append(country).append(city).append(additionalProperties).toHashCode();
+        return new HashCodeBuilder().append(id).append(name).append(country).append(city).append(additionalProperties).toHashCode();
     }
 
     @Override
@@ -151,7 +153,7 @@ public class Manufacturer {
             return false;
         }
         Manufacturer rhs = ((Manufacturer) other);
-        return new EqualsBuilder().append(Id, rhs.Id).append(name, rhs.name).append(country, rhs.country).append(city, rhs.city).append(additionalProperties, rhs.additionalProperties).isEquals();
+        return new EqualsBuilder().append(id, rhs.id).append(name, rhs.name).append(country, rhs.country).append(city, rhs.city).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 
 }
